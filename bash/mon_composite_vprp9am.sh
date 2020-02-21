@@ -37,7 +37,7 @@ do
 
   ### Fix time units ###
 
-  #Get year form file name # which character number does the year start?
+  #Get year form file name # Specify the number of characters to index to capture the year
   year=${F:8:4}
 
   #Set correct time units
@@ -47,7 +47,7 @@ do
   cdo monmean $out_path/temp1.nc $out_path/"Monthly_mean_"$F
 
   #Remove temp file
-#  rm $out_path/temp.nc $out_path/temp1.nc # DEBUGGING
+ rm $out_path/temp.nc $out_path/temp1.nc #
 
 done
 
@@ -61,4 +61,4 @@ cdo mergetime $out_files $temp_out
 out_final_vprp9am="$out_path/Monthly_mean_vprp9am_AWAP_masked_"$start_yr"_"$end_yr".nc"
 cdo -L div $temp_out -gec,1 $mask_file $out_final_vprp9am
 
-# rm $out_path/Monthly_mean_vprp9am.* $temp_out # DEBUGGING
+rm $out_path/Monthly_mean_vprp9am.* $temp_out # DEBUGGING
