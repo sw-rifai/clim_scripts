@@ -15,17 +15,19 @@ end_yr=2019
 #Set output path
 out_path="/srv/ccrc/data41/z3530735/LPDR_Oz/"
 
-years=`seq 2002 2019`
+years=`seq 2002 2003`
 
 for y in $years
  do
  out_path="/srv/ccrc/data41/z3530735/LPDR_Oz/"$y
  source_path=$path"/"$y
- files=`find $path -type f -name "*.tif" -printf "%f\n"`
+ files=`find $source_path -type f -name "*.tif" -printf "%f\n"`
  mkdir -p $out_path
  for F in $files
     do
         echo $out_path/$F
+        gdal_translate -projwin_srs EPSG:4326 -projwin 111.9750000  -9.9750000 156.2750000 -44.5250000 \
+        $source_path/$F $out_path/$F
     done
 done
 
