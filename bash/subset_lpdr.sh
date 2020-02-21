@@ -3,7 +3,7 @@
 # Subset LPDR_v2 to Australia
 
 #Set path to LPDR
-path="/srv/ccrc/data41/z3530735/LPDR_v2/data/LPDR_v2/GeoTIFF/2002"
+path="/srv/ccrc/data41/z3530735/LPDR_v2/data/LPDR_v2/GeoTIFF/"
 
 #Path to land mask file (1 when land, 0 for ocean)
 mask_file="/srv/ccrc/data41/z3530735/AWAP/AWAP_Land-Sea-Mask_0.05deg_invert.nc"
@@ -13,18 +13,29 @@ start_yr=2002
 end_yr=2019
 
 #Set output path
-out_path="/srv/ccrc/data41/z3530735/LPDR_Oz/"$start_yr
+out_path="/srv/ccrc/data41/z3530735/LPDR_Oz/"
 
-#Create out directory
-mkdir -p $out_path
+years=`seq 2002 2019`
 
-#List files (without path name, careful doesn't return in alphabetical order)
-files=`find $path -type f -name ".tif" -printf "%f\n"`
-
-for F in $files
+for y in $years
  do
- echo $F
+ out_path="/srv/ccrc/data41/z3530735/LPDR_Oz/"$y
+ echo $out_path
 done
+
+
+# #Create out directory
+# mkdir -p $out_path
+#
+# #List files (without path name, careful doesn't return in alphabetical order)
+# files=`find $path -type f -name ".tif" -printf "%f\n"`
+#
+# for F in $files
+#  do
+#  echo $F
+#  out_path="/srv/ccrc/data41/z3530735/LPDR_Oz/"$start_yr
+#
+# done
 
 
 # # working example of clip
