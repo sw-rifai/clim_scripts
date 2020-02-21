@@ -25,7 +25,7 @@ for y in $years
  mkdir -p $out_path
  for F in $files
     do
-        echo $F
+        echo $out_path/$F
     done
 done
 
