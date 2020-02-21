@@ -37,8 +37,8 @@ do
 
   ### Fix time units ###
 
-  #Get year form file name
-  year=${F:5:4}
+  #Get year form file name # which character number does the year start?
+  year=${F:8:4}
 
   #Set correct time units
   cdo settunits,days -settaxis,${year}-01-01,00:00,1day $out_path/temp.nc $out_path/temp1.nc
@@ -47,7 +47,7 @@ do
   cdo monmean $out_path/temp1.nc $out_path/"Monthly_mean_"$F
 
   #Remove temp file
-  rm $out_path/temp.nc $out_path/temp1.nc
+#  rm $out_path/temp.nc $out_path/temp1.nc # DEBUGGING
 
 done
 
