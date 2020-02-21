@@ -61,4 +61,4 @@ cdo mergetime $out_files $temp_out
 out_final_vprp9am="$out_path/Monthly_mean_vprp9am_AWAP_masked_"$start_yr"_"$end_yr".nc"
 cdo -L div $temp_out -gec,1 $mask_file $out_final_vprp9am
 
-rm $out_path/Monthly_mean_vprp9am.* $temp_out
+# rm $out_path/Monthly_mean_vprp9am.* $temp_out # DEBUGGING
