@@ -8,7 +8,7 @@ path="/srv/ccrc/data02/z3236814/data/AWAP/DAILY/netcdf/"
 mask_file="/srv/ccrc/data07/z3356123/AWAP_out/Mask_Land-Sea/AWAP_Land-Sea-Mask_0.05deg.nc"
 
 #SEt start and end years
-start_yr=1911
+start_yr=1970
 end_yr=2019
 
 #Set output path
