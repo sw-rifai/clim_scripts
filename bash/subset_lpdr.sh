@@ -20,7 +20,13 @@ years=`seq 2002 2019`
 for y in $years
  do
  out_path="/srv/ccrc/data41/z3530735/LPDR_Oz/"$y
- echo $out_path
+ source_path=$path"/"$y
+ files=`find $path -type f -name "*.tif" -printf "%f\n"`
+ mkdir -p $out_path
+ for F in $files
+    do
+        echo $F
+    done
 done
 
 
