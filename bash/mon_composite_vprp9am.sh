@@ -5,7 +5,7 @@
 path="/srv/ccrc/data02/z3236814/data/AWAP/DAILY/netcdf/"
 
 #Path to land mask file (1 when land, 0 for ocean)
-mask_file="/srv/ccrc/data07/z3356123/AWAP_out/Mask_Land-Sea/AWAP_Land-Sea-Mask_0.05deg.nc"
+mask_file="/srv/ccrc/data41/z3530735/AWAP/AWAP_Land-Sea-Mask_0.05deg_invert.nc"
 
 #SEt start and end years
 start_yr=1970
