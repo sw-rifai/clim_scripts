@@ -2,7 +2,7 @@
 # Copped from Anna's script ~ thanks A!
 
 #Set path to AWAP files
-path="/srv/ccrc/data02/z3236814/data/AWAP/DAILY/netcdf/"
+path="/srv/ccrc/data02/z3236814/data/AWAP/DAILY/netcdf/Daily_9am_vapour_pressure/"
 
 #Path to land mask file (1 when land, 0 for ocean)
 mask_file="/srv/ccrc/data07/z3356123/AWAP_out/Mask_Land-Sea/AWAP_Land-Sea-Mask_0.05deg.nc"
