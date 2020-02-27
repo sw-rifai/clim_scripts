@@ -9,8 +9,8 @@ path="/srv/ccrc/data41/z3530735/LPDR_v2/data/LPDR_v2/GeoTIFF/"
 mask_file="/srv/ccrc/data41/z3530735/AWAP/AWAP_Land-Sea-Mask_0.05deg_invert.nc"
 
 #SEt start and end years
-start_yr=2002
-end_yr=2018
+start_yr=2019
+end_yr=2019
 
 #Set output path
 out_path="/srv/ccrc/data41/z3530735/LPDR_Oz/"
@@ -20,7 +20,7 @@ years=`seq 2004 2019`
 for y in $years
  do
  out_path="/srv/ccrc/data41/z3530735/LPDR_Oz/"$y
- source_path=$path"/"$y
+ source_path="/srv/ccrc/data41/z3530735/LPDR_v2/data/LPDR_v2/GeoTIFF/2019_preliminary"
  files=`find $source_path -type f -name "*.tif" -printf "%f\n"`
  mkdir -p $out_path
  for F in $files
