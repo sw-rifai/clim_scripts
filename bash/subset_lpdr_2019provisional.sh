@@ -15,7 +15,7 @@ end_yr=2019
 #Set output path
 out_path="/srv/ccrc/data41/z3530735/LPDR_Oz/"
 
-years=`seq 2004 2019`
+years=`seq $start_yr $end_yr`
 
 for y in $years
  do
