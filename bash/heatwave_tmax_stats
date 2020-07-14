@@ -1,0 +1,65 @@
+#!/bin/bash
+infile=awap_tmax_daily_masked_1980_2019.nc
+outfile=tmp.nc
+
+# calc mean during ref period
+cdo -f nc4c -z zip_6 ymonmean -selyear,1981/2010 $infile tmax_mmean.nc
+cdo -f nc4c -z zip_6 monmean $infile tmax_monthly_mean.nc
+cdo -f nc4c -z zip_6 ymonsub tmax_monthly_mean.nc tmax_mmean.nc tmax_monthly_mean_anom.nc
+
+# calc 90 percentile of tmax over reference period
+cdo -z zip_6 ymonpctl,90 -selyear,1981/2010 $infile -ymonmin -selyear,1981/2010 $infile -ymonmax -selyear,1981/2010 $infile tmax_ref_90pctl.nc
+
+cdo -z zip_6 inttime,2010-01-01,00:00:00,1day tmax_ref_90pctl.nc test.nc
+
+# calc number of days tmax is greater than 90 percentile
+# cdo -z zip_6 -monsum -gtc,$infile tmax_ref_90pctl.nc tmax_monthly_gt90pctl.nc
+
+# calc number of days tmax is greater than thresholds
+cdo -z zip_6 monsum -gtc,35 $infile tmax_gt35.nc &
+cdo -z zip_6 monsum -gtc,36 $infile tmax_gt36.nc &
+cdo -z zip_6 monsum -gtc,37 $infile tmax_gt37.nc &
+cdo -z zip_6 monsum -gtc,40 $infile tmax_gt40.nc &
+cdo -z zip_6 monsum -gtc,45 $infile tmax_gt45.nc &
+cdo -z zip_6 monsum -gtc,38 $infile tmax_gt38.nc &
+cdo -z zip_6 monsum -gtc,38 $infile tmax_gt39.nc &
+cdo -z zip_6 monsum -gtc,41 $infile tmax_gt41.nc &
+cdo -z zip_6 monsum -gtc,42 $infile tmax_gt42.nc &
+cdo -z zip_6 monsum -gtc,43 $infile tmax_gt43.nc &
+cdo -z zip_6 monsum -gtc,44 $infile tmax_gt44.nc &
+cdo -z zip_6 monsum -gtc,46 $infile tmax_gt46.nc &
+cdo -z zip_6 monsum -gtc,47 $infile tmax_gt47.nc &
+
+
+
+cdo monpctl,90 -selyear,1981/2010 $infile tmax_ref_90pctl.nc
+
+cdo -z zip_6 monpctl,95 $infile -monmin $infile -monmax $infile $outfile
+
+
+
+
+
+
+cdo seldate,1981-01-01T00:00:00,2010-12-31T23:59:59 $infile ss.nc
+cdo ymonmean ss.nc awap_tmax_climatology.nc
+
+
+
+cdo monmean $infile $outfile
+cdo monpctl,95 $infile $outfile
+cdo yearpctl,95 $infile $outfile
+
+infile=awap_tmax_daily_1980_2019.nc
+
+cdo -z zip_6 monpctl,95 $infile -monmin $infile -monmax $infile $outfile
+
+
+cdo ymonmin $infile minfile.nc
+  cdo ymonmax infile maxfile
+  cdo ymonpctl,90 infile minfile maxfile outfile
+
+cdo shaded,interval=3,colour_min=violet,colour_max=red,colour_triad=cw tmp.nc plot
+
+
+ls
