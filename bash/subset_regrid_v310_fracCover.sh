@@ -1,10 +1,15 @@
 #!/bin/bash
 
-# Subset CSIRO v310 MCD43A4 Fraction Cover to east Australia
+# Subset CSIRO v310 MCD43A4 Fraction Cover to east Australia, and regrid to
+# 0.05 degrees.
+
+# Data source
+# wget *.tif https://eo-data.csiro.au/remotesensing/v310/australia/monthly/cover/
 
 #Set paths
 path="/home/sami/Downloads/frac_cover/eo-data.csiro.au/remotesensing/v310/australia/monthly/cover/eo-data.csiro.au/remotesensing/v310/australia/monthly/cover/"
 scratch="/home/sami/scratch/frac_cover/"
+scratch_base="/home/sami/scratch"
 
 files=`find $path -type f -name "*.tif" -printf "%f\n"`
 
@@ -25,6 +30,7 @@ done
 
 files=`find $scratch/nc -type f -name "*.nc" -printf "%f\n"`
 
+# rename bands
 for f in $files
  do
  ncrename -v Band1,soil $scratch/nc/$f
@@ -32,31 +38,15 @@ for f in $files
  ncrename -v Band3,npv $scratch/nc/$f
 done
 
+# merge (make sure file list is in chronological order)
+scratch = $scratch/nc
+files=`ls $scratch`
+cdo -f nc4c -z zip_6 cat $files $scratch_base/merged_FC.v310.MCD43A4.nc
 
+# set time units
+cdo settunits,days -settaxis,2001-01-01,00:00,1month $scratch_base/merged_FC.v310.MCD43A4.nc \
+$scratch_base/merged2_FC.v310.MCD43A4.nc
 
- mv "$file" "${file%.html}.txt"
+cp $scratch_base/merged2_FC.v310.MCD43A4.nc /home/sami/srifai@gmail.com/work/research/data_general/Oz_misc_data/FC.v310.MCD43A4_2001_2019.nc
 
-
-
-#SEt start and end years
-start_yr=2002
-end_yr=2019
-
-#Set output path
-out_path="/srv/ccrc/data41/z3530735/LPDR_Oz/"
-
-years=`seq 2004 2019`
-
-for y in $years
- do
- out_path="/srv/ccrc/data41/z3530735/LPDR_Oz/"$y
- source_path=$path"/"$y
- files=`find $source_path -type f -name "*.tif" -printf "%f\n"`
- mkdir -p $out_path
- for F in $files
-    do
-        echo $out_path/$F
-        gdal_translate -projwin_srs EPSG:4326 -projwin 111.9750000  -9.9750000 156.2750000 -44.5250000 \
-        $source_path/$F $out_path/$F
-    done
-done
+rm $scratch_base/merged_FC.v310.MCD43A4.nc
