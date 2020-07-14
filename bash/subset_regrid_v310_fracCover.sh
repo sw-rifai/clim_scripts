@@ -48,5 +48,12 @@ cdo settunits,days -settaxis,2001-01-01,00:00,1month $scratch_base/merged_FC.v31
 $scratch_base/merged2_FC.v310.MCD43A4.nc
 
 cp $scratch_base/merged2_FC.v310.MCD43A4.nc /home/sami/srifai@gmail.com/work/research/data_general/Oz_misc_data/FC.v310.MCD43A4_2001_2019.nc
-
 rm $scratch_base/merged_FC.v310.MCD43A4.nc
+
+# regrid to the exported ~5km Earth Engine crs 4326 grid
+base_grid=/home/sami/srifai@gmail.com/work/research/data_general/Oz_misc_data/MCD64A1_C6_BurnFreq_20010101-20190930.tif
+gdal_translate -of netCDF -co "FORMAT=NC4" $base_grid $base_grid"${f%.tif}.nc" &
+base_grid=/home/sami/srifai@gmail.com/work/research/data_general/Oz_misc_data/MCD64A1_C6_BurnFreq_20010101-20190930.nc
+
+cdo -f nc4c -z zip_6 remapbil,$base_grid $scratch_base/merged2_FC.v310.MCD43A4.nc $scratch_base/merged3_FC.v310.MCD43A4.nc
+cp $scratch_base/merged3_FC.v310.MCD43A4.nc /home/sami/srifai@gmail.com/work/research/data_general/Oz_misc_data/FC.v310.MCD43A4_2001_2019.nc
