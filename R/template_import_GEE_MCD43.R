@@ -78,8 +78,8 @@ dat %>% as_tibble() %>%
   mutate(year=year(date)) %>% 
   filter(year==2003) %>% 
   select(nirv, nirv_g, nirv_sg, site, date) %>% 
-  gather(-site, -date, key='VI',value = 'estimate') %>% 
-  ggplot(data=., aes(date, estimate, color=VI))+
+  gather(-site, -date, key='method',value = 'NIRV') %>% 
+  ggplot(data=., aes(date, NIRV, color=method))+
   geom_point()+
   scale_color_viridis_d(end=0.8)+
-  facet_wrap(~site, nrow = 2)
+  facet_grid(method~site)
