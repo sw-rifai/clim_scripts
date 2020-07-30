@@ -9,14 +9,18 @@ module load perl
 module load gdal
 module load proj
 
-# OPTIONS
+# OPTIONS ----------------------------------------------------------------------
+
+
+# seq 10 | xargs -i --max-procs=10 bash -c "echo start {}; sleep 3; echo done {}"
+
 src_dir=/srv/ccrc/data41/z3530735/scratch/fractional_cover/vic/qld.auscover.org.au/landsat/seasonal_fractional_cover/fractional_cover/vic
-dest_dir=/srv/ccrc/data41/z3530735/scratch/fractional_cover/p05/
+dest_dir=/srv/ccrc/data41/z3530735/scratch/fractional_cover/vic_p05/
 scratch=/srv/ccrc/data41/z3530735/scratch/fractional_cover/tmp/
 base_grid=/srv/ccrc/data41/z3530735/srifai@gmail.com/work/research/data_general/AVHRR_CDRv5_VI/AVHRR_NIRV_monmean_EastOz_1982_2019.tif
 
 
-files=`find $path -type f -name "*.tif" -printf "%f\n"`
+files=`find $src_dir -type f -name "*.tif" -printf "%f\n"`
 
 # check files
 for f in $files
